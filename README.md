@@ -111,7 +111,7 @@ http://localhost:8081/
 ## 실행 화면 예시
 
 1. 로그인
-![login](src/assets/login.png)
+![login](src/assets/login.jpg)
 2. 회원가입
 ![signup](src/assets/signup.png)
 3. 회원상세조회
