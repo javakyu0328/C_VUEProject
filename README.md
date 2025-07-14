@@ -111,11 +111,11 @@ http://localhost:8081/
 ## 실행 화면 예시
 
 1. 로그인
-![login](./moviemember/1. login-1.png)
+![login](1.%20login-1.png)
 2. 회원가입
-![signup](./moviemember/2. signup-1.png)
+![signup](2.%20signup-1.png)
 3. 회원상세조회
-![profile](./moviemember/3. profile-1.png)
+![profile](3.%20profile-1.png)
 
 
 
