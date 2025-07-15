@@ -23,6 +23,7 @@ export default {
       movies: [
         { id: 1, title: "영화 A", poster: "poster1.jpg" },
         { id: 2, title: "영화 B", poster: "poster2.jpg" },
+        { id: 3, title: "영화 C", poster: "posterC.jpg" },
         // 원하는 영화 데이터 추가
       ]
     }

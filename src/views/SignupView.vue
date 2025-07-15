@@ -3,8 +3,10 @@
     <h2>회원가입</h2>
     <form @submit.prevent="handleSignup">
       <div class="form-group">
-        <label for="name">아이디</label>
-        <input type="name" v-model="name" required placeholder="아이디를 입력하세요"/>
+        <label for="id">아이디</label>
+        <input type="text" v-model="id" required placeholder="아이디를 입력하세요"/>
+        <div v-if="idCheckResult === 'ok'" style="color:green;">사용 가능한 아이디입니다.</div>
+        <div v-else-if="idCheckResult === 'no'" style="color:red;">이미 사용 중인 아이디입니다.</div>
       </div>
 
       <div class="form-group">
@@ -44,19 +46,82 @@
 <script setup>
 import Datepicker from 'vue3-datepicker'
 import { ref } from 'vue'
+import axios from 'axios'
+import { useRouter } from 'vue-router'
+import { watch } from 'vue'
 
+const id = ref('')
+const idCheckResult = ref(null) // 'ok' or 'no' or null
+const name = ref('')
 const email = ref('')
+const birth = ref('')
 const password = ref('')
 const confirmPassword = ref('')
-const birth = ref(null)
+const router = useRouter()
+
 
 function handleSignup() {
   if (password.value !== confirmPassword.value) {
-    alert('비밀번호가 일치하지 않습니다.')
+    alert('비밀번호가 일치하지 않습니다!')
     return
   }
-  console.log('회원가입 시도:', email.value, password.value)
+
+  if (idCheckResult.value =="no"){
+    alert('아이디 중복 확인을 해주세요!')
+    return
+  }
+  submitForm()
+  console.log('회원가입 시도:', id.value, email.value)
 }
+
+
+
+//회원가입 시 아이디 유효성 검사 
+const checkId = async () => {
+  if (!id.value.trim()) {
+    idCheckResult.value = null
+    return
+  }
+
+  try {
+    const response = await axios.post('http://localhost:8083/api/member/id-check', null, {
+      params: {
+        id: id.value
+      }
+    })
+    idCheckResult.value = response.data
+    console.log('아이디 중복 검사 결과:', response.data)
+  } catch (error) {
+    console.error('아이디 중복 검사 에러:', error)
+    idCheckResult.value = null
+  }
+}
+
+// 아이디 입력 시마다 자동 검사
+watch(id, () => {
+  checkId()
+})
+
+//회원가입 데이터 전송
+const submitForm = async() => {
+  try{
+    const response = await axios.post('http://localhost:8083/api/member/save',{
+      id: id.value,
+      name: name.value,
+      email: email.value,
+      birth: birth.value,
+      password:password.value
+    });
+    console.log('회원가입 응답:',response.data);
+    if(response.data === 'ok'){
+      alert("회원가입 성공! 로그인 페이지로 이동합니다.")
+      router.push('/login') //Vue Router로 이동
+    }
+  }catch(error){
+    alert('에러발생:'+error.message)
+  }
+}
+
 </script>
 
 <style scoped>

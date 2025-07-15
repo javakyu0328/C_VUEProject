@@ -70,7 +70,7 @@ MOVIEMEMBER/
 
 ---
 
-##  주요 기능
+##  주요 기능 (1.0v)
 
 | 기능           | 설명                                     |
 |----------------|------------------------------------------|
@@ -116,11 +116,44 @@ http://localhost:8081/
 ![signup](./src/assets/images/signup.png)
 3. 회원상세조회
 ![profile](./src/assets/images/profile.png)
-
+4. 홈화면
+![profile](./src/assets/images/home.png)
+5. 영화
+![profile](./src/assets/images/movie.png)
+6. 정보
+![profile](./src/assets/images/inform.png)
 
 
 ---
 
 ## 수정 및 추가 사항
+---
+
+###  버전  
+1.1V
+---
+
+###  1. 아이디 중복(유효성) 검사 기능
+회원가입 시, 중복된 아이디를 사전에 확인하여 사용자 경험을 개선하고, 서버 저장 오류를 방지합니다.
 
 ---
+
+
+
+###  기능요약  
+| 기능           | 설명                                     |
+|----------------|------------------------------------------|
+| 검사 시점       | 아이디 입력 시 자동 검사 (watch()) 또는 버튼 클릭 시 검사 가능 |
+| 요청 방식       | Vue에서 axios.post()를 이용한 비동기 요청          |
+| 백엔드 API 경로 | POST /api/member/id-check    |
+| 응답 포맷       | "ok": 사용 가능, "no": 중복 아이디     |
+| 가입 제어       | 중복일 경우 가입 버튼 비활성화 또는 가입 요청 차단 (alert 출력)     |
+---
+
+### 실행 화면 예시
+1. 아이디 사용 가능
+![alt text](./src/assets/images/idok.png)
+2. 아이디 중복
+![alt text](./src/assets/images/idno.png)
+3. 아이디 중복시 가입 불가
+![alt text](./src/assets/images/idnoalert.png)
