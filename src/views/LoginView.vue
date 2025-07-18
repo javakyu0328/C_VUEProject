@@ -37,17 +37,51 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router' //프론트앤드-백앤드 연결
+import { useAuthStore } from '@/store/auth'  // 이거 빠지면 오류남
+import apiClient from '@/services/apiClient' // 커스텀 axios 인스턴스 사용
+
 
 const memberid = ref('')
 const password = ref('')
+const router = useRouter() //프론트앤드-백앤드 연결
+const authStore = useAuthStore()
 
-function handleLogin() {
+async function handleLogin() {
   if (!memberid.value || !password.value) {
     alert('아이디와 비밀번호를 모두 입력해주세요.')
     return
   }
 
+  try {
+    const response = await apiClient.post('/member/login',
+      {
+        id: memberid.value,
+        password: password.value
+      }
+    )
+
+  if (response.status === 200 && response.data.result === 'ok') {
+      alert('로그인 성공!');
+      //await fetchLoginUser(); // 세션에서 로그인 아이디 재확인
+      // 로그인 성공 → 사용자 정보 다시 요청해서 저장
+      const userRes = await apiClient.get('/member/me')
+
+      authStore.login(userRes.data) // Pinia 상태에 저장
+      router.push('/');
+  } else {
+      alert('로그인 실패: 아이디 또는 비밀번호가 틀렸습니다.');
+  }
+  } catch (error) {
+      if (error.response && error.response.status === 401) {
+          alert('로그인 실패: 아이디 또는 비밀번호가 틀렸습니다.');
+      } else {
+          alert('서버 오류가 발생했습니다. 나중에 다시 시도해주세요.');
+      }
+      console.error(error);
+  }
   console.log('로그인 시도:', memberid.value, password.value)
+  
 }
 </script>
 

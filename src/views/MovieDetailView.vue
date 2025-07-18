@@ -10,7 +10,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
-import MovieSchedule from '../components/MovieSchedule.vue'
+import MovieSchedule from '../components/movie/MovieSchedule.vue'
 
 const route = useRoute()
 const movieId = route.params.id

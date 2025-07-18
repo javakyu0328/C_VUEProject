@@ -46,9 +46,9 @@
 <script setup>
 import Datepicker from 'vue3-datepicker'
 import { ref } from 'vue'
-import axios from 'axios'
 import { useRouter } from 'vue-router'
 import { watch } from 'vue'
+import apiClient from '@/services/apiClient' // 커스텀 axios 인스턴스 사용
 
 const id = ref('')
 const idCheckResult = ref(null) // 'ok' or 'no' or null
@@ -84,7 +84,7 @@ const checkId = async () => {
   }
 
   try {
-    const response = await axios.post('http://localhost:8083/api/member/id-check', null, {
+    const response = await apiClient.post('/member/id-check', null, {
       params: {
         id: id.value
       }
@@ -105,7 +105,7 @@ watch(id, () => {
 //회원가입 데이터 전송
 const submitForm = async() => {
   try{
-    const response = await axios.post('http://localhost:8083/api/member/save',{
+    const response = await apiClient.post('/member/save',{
       id: id.value,
       name: name.value,
       email: email.value,

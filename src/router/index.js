@@ -7,6 +7,7 @@ import HomeView from '../views/HomeView.vue'
 import MoviesView from '../views/MoviesView.vue'  
 import MovieDetailView from '../views/MovieDetailView.vue'  
 import InfoView from '../views/InfoView.vue'
+import MovieRegistrationView from '../views/MovieRegistrationView.vue'
 
 const routes = [
   { path: '/', name: 'HomeView', component: HomeView },
@@ -16,7 +17,7 @@ const routes = [
   { path: '/movies', name: 'MoviesView', component: MoviesView },
   { path: '/movieDetail', name: 'MovieDetail', component: MovieDetailView },
   { path: '/info', name: 'Info', component: InfoView },
-
+  { path: '/movies/register', name: 'MovieRegistration', component: MovieRegistrationView },
 ]
 
 const router = createRouter({

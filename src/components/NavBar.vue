@@ -4,19 +4,77 @@
       <router-link to="/">홈</router-link>
       <router-link to="/movies">영화</router-link>
       <router-link to="/info">정보</router-link>
+      <router-link v-if="authStore.isLogin && authStore.user === 'admin'" to="/movies/register" class="register-link">영화 등록</router-link>
     </div>
+    
     <div class="nav-center">
        <span class="logo">JK MOVIE</span>
     </div>
+
     <div class="nav-right">
        <a href="#" @click="event">이벤트</a>
        <a href="#" @click="store">스토어</a>
-      <router-link to="/login">로그인</router-link>
-    </div> 
+      <!--<router-link to="/login">로그인</router-link>  //로그인 세션 기능 추가-->
+
+      <!-- 기존 로그인 버전 1.0V
+        <template v-if="loginId">
+          {{ loginId }}님
+          <button @click="logout">로그아웃</button>"
+        </template>
+        <template v-else>
+            <router-link to="/login">로그인</router-link>
+        </template>
+        -->
+        <template v-if="authStore.isLogin">
+          <router-link to="/profile" class="profile-link">내 정보</router-link>
+          <span class="user">{{ authStore.user }}님 </span>
+          <button v-if="authStore.isLogin" @click="logout">로그아웃</button>
+        </template>
+        
+        <template v-else>
+          <router-link to="/login">로그인</router-link>
+        </template>
+
+      </div>
   </nav>
 </template>
 
 <script setup>
+  import { ref, onMounted } from 'vue'
+  import { useRouter } from 'vue-router'
+  import { useAuthStore } from '@/store/auth'
+  import apiClient from '@/services/apiClient' // 커스텀 axios 인스턴스 사용
+
+
+
+  const loginId = ref(null)
+  const router = useRouter()
+  const authStore = useAuthStore()
+
+
+  
+  // 세션에서 로그인 아이디 가져오기
+  onMounted(async () => {
+    try {
+      const res = await apiClient.get('/member/me')
+      loginId.value = res.data
+    } catch {
+      loginId.value = null
+    }
+  })
+
+  // 로그아웃 처리
+  const logout = async () => {
+    try{
+        await apiClient.get('/member/logout')
+        authStore.logout() //  상태 초기화
+        router.push('/login')
+      }catch (e){
+         console.error('로그아웃 실패:', e)
+      }  
+    }
+
+
   function event(){
     alert('이벤트 페이지 기능은 아직 구현 중입니다.')
   }
@@ -82,6 +140,10 @@
   font-weight: bold;
   font-size: 70px;
   color: #fff;
+}
+.user{
+  color: white;
+  text-decoration: none;
 }
 a {
   color: white;

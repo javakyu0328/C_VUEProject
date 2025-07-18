@@ -3,9 +3,9 @@
 
 ##  프로젝트 소개
 Vue3 기반 프론트엔드 프로젝트입니다.  
-홈페이지의 핵심 기능인 **회원 로그인 및 회원가입 기능**을 시작으로,  
-향후 영화 정보 조회, 예매 기능 등을 추가하고  
-**Spring Boot 백엔드(B_SpringBootProject)** 와 연결하여 데이터를 주고받는 **통합 프로젝트**로 발전할 예정입니다.
+본 프로젝트는 **Vue3 + Vite 기반 Single Page Application**으로,  
+Spring Boot 기반 백엔드 **E_SpringBootBackEnd**와 통합되어 동작합니다.  
+회원가입, 로그인, 회원탈퇴 등 회원관리 기능 및 영화 목록 조회, 정보 등록(관리자 기능) 등을 수행합니다.
 
 ---
 
@@ -13,80 +13,42 @@ Vue3 기반 프론트엔드 프로젝트입니다.
 1.0V
 
 ---
+
 ##  프로젝트 개요
 - **프로젝트명**: C_VUEProject
 - **프레임워크**: Vue3
 - **목표**:
-  - 사용자 인증 기능(로그인/회원가입) 구현
+  - 사용자 인증 기능(로그인/회원가입/정보수정/회원탈퇴) 구현
+  - 페이지별 로그인 정보 공유
   - 이후 영화관 서비스에 필요한 다양한 UI/UX 구성
   - 백엔드(Spring Boot)와 통신하여 실제 데이터를 처리하는 웹 서비스로 확장
 
 ---
 
-##  프로젝트 구조
-```
-MOVIEMEMBER/
-├── node_modules/
-├── public/
-├── src/
-│   ├── assets/                    # 이미지, 스타일 등 정적 리소스
-│   ├── components/                # 재사용 가능한 컴포넌트들
-│   │   ├── AppFooter.vue          # 하단 푸터 컴포넌트
-│   │   ├── HeaderBar.vue          # 상단 헤더 바
-│   │   ├── MovieCard.vue          # 영화 카드 (상세 뷰 또는 리스트용)
-│   │   ├── MovieSchedule.vue      # 영화 시간표 컴포넌트
-│   │   ├── MovieSelector.vue      # 영화 선택 셀렉터
-│   │   └── NavBar.vue             # 네비게이션 바
-│   ├── router/
-│   │   └── index.js               # Vue Router 설정
-│   ├── store/                     # 상태 관리(Vuex or Pinia)
-│   ├── views/                     # 페이지(라우터 연결 대상)
-│   │   ├── AdminView.vue          # 관리자 페이지
-│   │   ├── HomeView.vue           # 홈 화면
-│   │   ├── InfoView.vue           # 영화 정보 페이지
-│   │   ├── LoginView.vue          # 로그인 페이지
-│   │   ├── MovieDetailView.vue    # 영화 상세 페이지
-│   │   ├── MoviesView.vue         # 전체 영화 리스트
-│   │   ├── ProfileView.vue        # 사용자 프로필 페이지
-│   │   ├── ReserveView.vue        # 예매 페이지
-│   │   └── SignupView.vue         # 회원가입 페이지
-│   ├── App.vue                    # 루트 컴포넌트
-│   └── main.js                    # 앱 진입점
-├── package.json                   # 프로젝트 의존성 및 설정
-├── README.md                      # 프로젝트 설명 파일
-└── ...
-```
+##  백엔드 연동 주요 기능
+
+| 기능 | 설명 | 연동 API | Vue 페이지 / 컴포넌트 |
+|------|------|----------|------------------------|
+| **회원가입** | 신규 사용자 등록 | `POST /api/member/signup` | `SignUp.vue` |
+| **로그인** | JWT 토큰 발급 & 세션 등록 | `POST /api/member/login` | `Login.vue`, `AuthLayout.vue` |
+| **로그아웃** | 토큰 삭제 및 세션 종료 | `POST /api/member/logout` 또는 `DELETE /api/member/session` | `Header.vue` |
+| **회원 탈퇴** | 본인 계정 삭제 | `DELETE /api/member/{id}` | `Profile.vue`, `Settings.vue` |
+| **회원정보 조회/수정** | 프로필 표시 및 변경 | `GET/PUT /api/member/{id}` | `Profile.vue` |
+| **영화 목록 조회** | 전체 영화 리스트 | `GET /api/movies` | `MovieList.vue` |
+| **영화 상세조회** | 개별 영화 정보 | `GET /api/movies/{id}` | `MovieDetail.vue` |
+| **영화 추천 보기** | 사용자 맞춤 추천 | `GET /api/movies/recommend` | `Recommend.vue` |
+| **영화 등록 (관리자)** | 영화 데이터 추가 | `POST /api/movies` | `Admin/MovieForm.vue` |
+| **영화 수정/삭제 (관리자)** | 영화 정보 수정/삭제 | `PUT/DELETE /api/movies/{id}` | `Admin/MovieForm.vue` |
+
 
 ---
-
 ##  기술 스택
 
-- Vue 3 (Composition API)
-- Vue Router
-- 추후 필요 시 Pinia 예정
-- 추후 axios 사용 예정
-- 기본 CSS (또는 추가 라이브러리 예정)            
-
-
----
-
-##  주요 기능 (1.0v)
-
-| 기능           | 설명                                     |
-|----------------|------------------------------------------|
-| 회원가입       | 사용자가 이메일/비밀번호 등을 입력해 계정 생성 |
-| 로그인         | 등록된 사용자 정보로 로그인 처리          |
-| 폼 유효성 검사 | 이메일 형식, 필수 입력 항목 등 체크 포함    |
-| 페이지 이동    | Vue Router를 통한 컴포넌트 기반 라우팅     |
-
----
-
-##  향후 개발 계획
-
-- B_SpringProject(백엔드)와 연동 (Spring Boot + REST API)
-- 영화 목록 조회, 상세 보기, 예매 기능 추가
-- 마이페이지, 예매 내역 확인 등 사용자 중심 기능 확장
-- 반응형 UI 및 사용자 경험 향상
+- **프레임워크**: Vue 3 + Vite
+- **상태관리**: Pinia   
+- **라우팅**: Vue Router  
+- **HTTP 통신**: Axios  
+- **인증/인가**: JWT 토큰 헤더 저장 및 Interceptor 적용
 
 ---
 ## 실행 방법
@@ -98,7 +60,9 @@ npm run serve
 ---
 
 ## 접속
-http://localhost:8081/
+- http://localhost:8082/
+
+- 백엔드(E_SpringBootBackEnd)도 http://localhost:8083/ 에서 실행되어 있어야 정상 동작
 
 ---
 
@@ -117,7 +81,7 @@ http://localhost:8081/
 3. 회원상세조회
 ![profile](./src/assets/images/profile.png)
 4. 홈화면
-![profile](./src/assets/images/home.png)
+![alt text](./src/assets/images/home.png)
 5. 영화
 ![profile](./src/assets/images/movie.png)
 6. 정보
@@ -143,7 +107,7 @@ http://localhost:8081/
 ###  기능요약  
 | 기능           | 설명                                     |
 |----------------|------------------------------------------|
-| 검사 시점       | 아이디 입력 시 자동 검사 (watch()) 또는 버튼 클릭 시 검사 가능 |
+| 검사 시점       | 아이디 입력 시 자동 검사 (watch()) 가능 |
 | 요청 방식       | Vue에서 axios.post()를 이용한 비동기 요청          |
 | 백엔드 API 경로 | POST /api/member/id-check    |
 | 응답 포맷       | "ok": 사용 가능, "no": 중복 아이디     |

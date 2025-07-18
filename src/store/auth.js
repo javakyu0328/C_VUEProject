@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 
+
 export const useAuthStore = defineStore('auth', {
   state: () => ({
     isLogin: false,
@@ -14,5 +15,6 @@ export const useAuthStore = defineStore('auth', {
       this.isLogin = false
       this.user = null
     }
-  }
+  },
+  persist: true // 새로고침해도 로그인 유지하려면 pinia-plugin-persist 필요
 })
