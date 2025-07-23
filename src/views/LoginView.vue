@@ -68,7 +68,7 @@ async function handleLogin() {
       const userRes = await apiClient.get('/member/me')
 
       authStore.login(userRes.data) // Pinia 상태에 저장
-      router.push('/');
+      router.push('/'); // 홈으로 이동
   } else {
       alert('로그인 실패: 아이디 또는 비밀번호가 틀렸습니다.');
   }

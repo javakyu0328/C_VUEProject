@@ -93,12 +93,13 @@ npm run serve
 ## 수정 및 추가 사항
 ---
 
-###  버전  
-1.1V
----
-
 ###  1. 아이디 중복(유효성) 검사 기능
 회원가입 시, 중복된 아이디를 사전에 확인하여 사용자 경험을 개선하고, 서버 저장 오류를 방지합니다.
+
+---
+
+###  버전  
+1.1V
 
 ---
 
@@ -121,3 +122,68 @@ npm run serve
 ![alt text](./src/assets/images/idno.png)
 3. 아이디 중복시 가입 불가
 ![alt text](./src/assets/images/idnoalert.png)
+
+<br>
+---
+
+### 2. 관리자 전용 페이지(영화 등록)접근 제어 기능 
+관리자 아이디(admin)로 로그인한 경우에만 영화 등록 페이지(/movie/register)에 접근할 수 있도록 구현하였습니다. 일반 사용자는 해당 메뉴 또는 페이지에 접근할 수 없습니다.
+
+---
+
+###  버전  
+1.2V
+
+---
+
+### 구현 개요
+
+- 로그인 시 서버에서 로그인한 사용자 ID를 받아와 Pinia 상태에 저장
+- 라우터에서 해당 ID가 admin인지 확인하여 접근 권한 제어
+- 메뉴 항목에서도 관리자일 때만 '영화 등록' 메뉴 노출
+
+### 핵심 코드
+
+- 관리자 전용 메뉴 조건부 렌더링
+```
+<!-- Header.vue -->
+<template>
+  <nav>
+    <router-link to="/">홈</router-link>
+    <router-link v-if="authStore.userId === 'admin'" to="/movie/register">영화 등록</router-link>
+  </nav>
+</template>
+
+<script setup>
+import { useAuthStore } from '@/stores/auth'
+const authStore = useAuthStore()
+</script>
+```
+
+- 라우터에서 관리자만 접근 가능하게 설정
+```
+// router/index.js
+import { useAuthStore } from '@/stores/auth'
+
+const routes = [
+  {
+    path: '/movie/register',
+    name: 'MovieRegister',
+    component: () => import('@/views/MovieRegister.vue'),
+    beforeEnter: (to, from, next) => {
+      const authStore = useAuthStore()
+      if (authStore.userId === 'admin') {
+        next()
+      } else {
+        alert('접근 권한이 없습니다.')
+        next('/') // 홈으로 리디렉션
+      }
+    }
+  }
+]
+
+```
+
+### 실행 화면 예시
+1. 관리자 계정 로그인시 (admin)
+![alt text](./src/assets/images/admin.png)

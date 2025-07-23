@@ -1,7 +1,7 @@
 <template>
   <div class="signup-container">
     <h2>회원가입</h2>
-    <form @submit.prevent="handleSignup">
+    <form @submit.prevent="handleSignup"> <!--prevent로 새로고침 방지-->
       <div class="form-group">
         <label for="id">아이디</label>
         <input type="text" v-model="id" required placeholder="아이디를 입력하세요"/>
