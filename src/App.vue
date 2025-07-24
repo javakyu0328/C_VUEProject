@@ -13,7 +13,7 @@
   import AppFooter from './components/AppFooter.vue';
   import { onMounted } from 'vue'
   import { useRouter } from 'vue-router'
-  import { useAuthStore } from './store/auth'
+  import { useAuthStore } from './stores/auth'
   import apiClient from './services/apiClient'
 
   const router = useRouter()

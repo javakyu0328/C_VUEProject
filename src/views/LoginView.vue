@@ -38,7 +38,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router' //프론트앤드-백앤드 연결
-import { useAuthStore } from '@/store/auth'  // 이거 빠지면 오류남
+import { useAuthStore } from '@/stores/auth'  // 이거 빠지면 오류남
 import apiClient from '@/services/apiClient' // 커스텀 axios 인스턴스 사용
 
 
