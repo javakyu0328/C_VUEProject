@@ -97,8 +97,8 @@
 import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import Datepicker from 'vue3-datepicker'
-import { useMemberStore } from '../store/member'
-import { useAuthStore } from '../store/auth'
+import { useMemberStore } from '../stores/member'
+import { useAuthStore } from '../stores/auth'
 import apiClient from '../services/apiClient' // 커스텀 axios 인스턴스 사용
 
 // 라우터 및 스토어 초기화

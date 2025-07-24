@@ -5,6 +5,7 @@
       <router-link to="/movies">영화</router-link>
       <router-link to="/info">정보</router-link>
       <router-link v-if="authStore.isLogin && authStore.user === 'admin'" to="/movies/register" class="register-link">영화 등록</router-link>
+      <router-link v-if="authStore.isLogin && authStore.user === 'admin'" to="/admin" class="admin-link">관리자</router-link>
     </div>
     
     <div class="nav-center">
@@ -42,8 +43,8 @@
 <script setup>
   import { ref, onMounted } from 'vue'
   import { useRouter } from 'vue-router'
-  import { useAuthStore } from '@/store/auth'
-  import apiClient from '@/services/apiClient' // 커스텀 axios 인스턴스 사용
+  import { useAuthStore } from '../stores/auth'
+  import apiClient from '../services/apiClient' // 커스텀 axios 인스턴스 사용
 
 
 
@@ -152,5 +153,15 @@ a {
 a.router-link-exact-active {
   font-weight: bold;
   border-bottom: 2px solid #f90;
+}
+
+/* 관리자 링크 스타일 */
+.admin-link {
+  color: #ff9900;
+  font-weight: bold;
+}
+
+.admin-link:hover {
+  text-decoration: underline;
 }
 </style>
