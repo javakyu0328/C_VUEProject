@@ -28,17 +28,17 @@ export const dataService = {
         
         // 더미 데이터 생성
         const dummyMembers = [
-          { id: 'admin', name: '관리자', email: 'admin@example.com', birth: '2000-01-01' },
-          { id: 'user1', name: '사용자1', email: 'user1@example.com', birth: '1990-05-15' },
-          { id: 'user2', name: '사용자2', email: 'user2@example.com', birth: '1985-11-22' },
-          { id: 'user3', name: '사용자3', email: 'user3@example.com', birth: '1995-08-30' },
-          { id: 'user4', name: '사용자4', email: 'user4@example.com', birth: '1988-03-17' },
-          { id: 'user5', name: '사용자5', email: 'user5@example.com', birth: '1992-07-08' },
-          { id: 'user6', name: '사용자6', email: 'user6@example.com', birth: '1998-12-25' },
-          { id: 'user7', name: '사용자7', email: 'user7@example.com', birth: '1987-04-19' },
-          { id: 'user8', name: '사용자8', email: 'user8@example.com', birth: '1993-09-11' },
-          { id: 'user9', name: '사용자9', email: 'user9@example.com', birth: '1997-02-28' },
-          { id: 'user10', name: '사용자10', email: 'user10@example.com', birth: '1991-06-14' }
+          { id: 'admin', name: '관리자', email: 'admin@example.com', birth: '2000-01-01' , joinDate: '2024-01-01', grade: 'C'},
+          { id: 'user1', name: '사용자1', email: 'user1@example.com', birth: '1990-05-15' , joinDate: '2024-01-01', grade: 'C' },
+          { id: 'user2', name: '사용자2', email: 'user2@example.com', birth: '1985-11-22' , joinDate: '2024-01-01', grade: 'C' },
+          { id: 'user3', name: '사용자3', email: 'user3@example.com', birth: '1995-08-30' , joinDate: '2024-01-01', grade: 'C' },
+          { id: 'user4', name: '사용자4', email: 'user4@example.com', birth: '1988-03-17' , joinDate: '2024-01-01', grade: 'C' },
+          { id: 'user5', name: '사용자5', email: 'user5@example.com', birth: '1992-07-08' , joinDate: '2024-01-01', grade: 'C' },
+          { id: 'user6', name: '사용자6', email: 'user6@example.com', birth: '1998-12-25' , joinDate: '2024-01-01', grade: 'C' },
+          { id: 'user7', name: '사용자7', email: 'user7@example.com', birth: '1987-04-19' , joinDate: '2024-01-01', grade: 'C' },
+          { id: 'user8', name: '사용자8', email: 'user8@example.com', birth: '1993-09-11' , joinDate: '2024-01-01', grade: 'C' },
+          { id: 'user9', name: '사용자9', email: 'user9@example.com', birth: '1997-02-28' , joinDate: '2024-01-01', grade: 'C' },
+          { id: 'user10', name: '사용자10', email: 'user10@example.com', birth: '1991-06-14' , joinDate: '2024-01-01', grade: 'C' }
         ];
         
         return dummyMembers;

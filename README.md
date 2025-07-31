@@ -126,6 +126,7 @@ npm run serve
 <br>
 
 ---
+---
 
 ### 2. 관리자 전용 페이지(영화 등록)접근 제어 기능 
 관리자 아이디(admin)로 로그인한 경우에만 영화 등록 페이지(/movie/register)에 접근할 수 있도록 구현하였습니다. 일반 사용자는 해당 메뉴 또는 페이지에 접근할 수 없습니다.
@@ -192,10 +193,13 @@ const routes = [
 <br>
 
 ---
+---
 
 ### 3. 관리자 데이터 그리드 기능
 이 업데이트는 **관리자용 데이터 그리드 기능**을 추가한 내용을 설명합니다.  
 관리자(admin)는 이 기능을 통해 **회원 및 영화 데이터를 효율적으로 조회, 검색, 정렬, 필터링, 다운로드**할 수 있습니다.
+
+---
 
 ###  버전  
 1.3V
@@ -280,3 +284,41 @@ admin 계정으로 로그인 후, 네비게이션에서 "관리자" 메뉴 클�
 ![alt text](./src/assets/images/columnSetting.png)<br>
 (엑셀파일 다운로드)
 ![alt text](./src/assets/images/excelDown.png)<br>
+
+
+---
+---
+
+
+### 4. 관리자 데이터 (회원관리) 기능 추가
+본 업데이트는 Vue3 기반 영화 회원 관리 프로젝트의 **관리자 데이터 그리드**에 `가입일(Join Date)`과 `회원등급(Grade)` 컬럼을 추가한 내용입니다. 이를 통해 관리자는 더 정교한 사용자 정보를 시각적으로 확인할 수 있습니다.
+(E_SpringBootBackEnd 프로젝트 1.2V 업데이트 참고)
+
+---
+
+###  버전  
+1.4V
+
+---
+
+### 추가 사항
+- 기존 회원 목록 그리드에 다음 두 컬럼이 추가됨:
+  - **가입일 (Join Date)**: `YYYY-MM-DD` 형식의 날짜 표시
+  - **회원등급 (Grade)**: 일반, VIP, 관리자 등의 등급 표시
+
+### 그리드 구성 예시
+```
+    // 회원 데이터용 필드 정의 (기본값)
+    const defaultMemberFields = [
+      { key: 'id', label: 'ID', visible: true },
+      { key: 'name', label: '이름', visible: true },
+      { key: 'email', label: '이메일', visible: true },
+      { key: 'birth', label: '생년월일', visible: true },
+      { key: 'joinDate', label: '가입일', visible: true },  //추가
+      { key: 'grade', label: '등급', visible: true }        //추가
+    ];
+```
+
+### 실행 화면 예시
+1. 관리자 페이지 (회원관리)
+![alt text](./src/assets/images/gridaddcolumn.png)

@@ -232,7 +232,9 @@ export default {
       { key: 'id', label: 'ID', visible: true },
       { key: 'name', label: '이름', visible: true },
       { key: 'email', label: '이메일', visible: true },
-      { key: 'birth', label: '생년월일', visible: true }
+      { key: 'birth', label: '생년월일', visible: true },
+      { key: 'joinDate', label: '가입일', visible: true },
+      { key: 'grade', label: '등급', visible: true }
     ];
     
     // 영화 데이터용 필드 정의 (기본값)
